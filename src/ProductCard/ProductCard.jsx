@@ -36,6 +36,14 @@ function ProductCard({ id, title, imgURL, desc, price }) {
     return alert(`Le prix du produit avec l'id ${data.id} a été modifié`);
   }
 
+  async function handleDeleteProduct() {
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: 'DELETE',
+    });
+    const data = await response.json();
+    return alert(`Le produit avec l'id ${data.id} a été supprimé`);
+  }
+
   return (
     <Col lg={3} md={6} sm={12}>
       <Card className='h-100'>
@@ -48,6 +56,7 @@ function ProductCard({ id, title, imgURL, desc, price }) {
           <p>{price}€</p>
           <Button onClick={handleEditProduct}>Modifier le produit complet</Button>
           <Button onClick={handleEditPrice}>Modifier le prix du produit</Button>
+          <Button onClick={handleDeleteProduct} variant='danger'>Supprimer le produit</Button>
         </Card.Body>
       </Card>
     </Col>
