@@ -22,8 +22,9 @@ function App() {
     <>
       <Container>
         <Row className='g-3 justify-content-center'>
-          {productList.map((product) => 
+          {productList.map((product, index) => 
             <ProductCard 
+              key={index}
               title={product.title} 
               imgURL={product.image} 
               desc={product.description} 
