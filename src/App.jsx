@@ -44,7 +44,8 @@ function App() {
           {productList.map((product, index) => 
             <ProductCard 
               key={index}
-              title={product.title} 
+              id={product.id}
+              title={product.title}
               imgURL={product.image} 
               desc={product.description} 
               price={product.price} 
