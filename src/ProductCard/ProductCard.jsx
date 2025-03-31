@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Col } from 'react-bootstrap'
 import './productCard.css'
 
-function ProductCard({ title, imgURL, desc, price}) {
+function ProductCard({ title, imgURL, desc, price }) {
   return (
     <Col lg={3} md={6} sm={12}>
       <Card className='h-100'>
