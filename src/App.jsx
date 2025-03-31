@@ -5,13 +5,11 @@ import { Button, Container, Row, Spinner } from 'react-bootstrap';
 
 function App() {
   const [productList, setProductList] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     async function fetchProduct() {
-      setError(null); // Reset error
-      setIsLoading(true);
       try {
         const response = await fetch('https://fakestoreapi.com/products');
 
@@ -34,8 +32,6 @@ function App() {
   // console.log(productList);
 
   async function handleAddProduct () {
-    setError(null);
-    setIsLoading(true);
     try {
       const response = await fetch("https://fakestoreapi.com/products", {
         method: 'POST',
@@ -58,22 +54,29 @@ function App() {
       const data = await response.json();
       return alert(`Le produit avec l'id ${data.id} a été créé`);
     } catch (err) {
-      setError(err);
-    } finally {
-      setIsLoading(false);
+      console.error(err);
     }
   };
+
+  if(error) {
+    return <p className='text-danger text-center'>{error.message}</p>
+  }
+
+  if(isLoading) {
+    return (
+      <Container className='d-flex justify-content-center align-items-center vh-100'>
+        <Spinner animation="border" role="status" className='mx-auto text-center'>
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </Container>
+    )
+  }
+
   return (
     <>
       <Container>
         <Button onClick={handleAddProduct}>Ajouter un produit</Button>
         <Row className='g-3 justify-content-center'>
-          {isLoading && (
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          )}
-          {error && (<p className='text-danger text-center'>{error.message}</p>)}
           {productList.map((product, index) => 
             <ProductCard 
               key={index}
@@ -82,7 +85,6 @@ function App() {
               imgURL={product.image} 
               desc={product.description} 
               price={product.price}
-              onError={(err) => setError(err)}
             />
           )}
         </Row>

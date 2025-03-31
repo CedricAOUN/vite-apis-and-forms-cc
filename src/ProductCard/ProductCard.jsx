@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button, Card, Col, Spinner } from 'react-bootstrap'
 import './productCard.css'
 
-function ProductCard({ id, title, imgURL, desc, price, onError }) {
-  const [isCardLoading, setIsCardLoading] = useState(false);
-
+function ProductCard({ id, title, imgURL, desc, price }) {
   async function handleEditProduct() {
-    onError(null);
-    setIsCardLoading(true);
     try {
       const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
         method: 'PUT',
@@ -30,15 +26,11 @@ function ProductCard({ id, title, imgURL, desc, price, onError }) {
       const data = await response.json();
       return alert(`Le produit avec l'id ${data.id} a été modifié`);
     } catch(err) {
-      onError(err)
-    } finally {
-      setIsCardLoading(false);
+      console.error(err);
     }
   }
 
   async function handleEditPrice() {
-    onError(null);
-    setIsCardLoading(true);
     try {
       const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
         method: 'PATCH',
@@ -57,15 +49,11 @@ function ProductCard({ id, title, imgURL, desc, price, onError }) {
       const data = await response.json();
       return alert(`Le prix du produit avec l'id ${data.id} a été modifié`);
     } catch (err) {
-      onError(err)
-    } finally {
-      setIsCardLoading(false);
+      console.error(err);
     }
   }
 
   async function handleDeleteProduct() {
-    onError(null);
-    setIsCardLoading(true);
     try {
       const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
         method: 'DELETE',
@@ -78,9 +66,7 @@ function ProductCard({ id, title, imgURL, desc, price, onError }) {
       const data = await response.json();
       return alert(`Le produit avec l'id ${data.id} a été supprimé`);
     } catch (err) {
-      onError(err)
-    } finally {
-      setIsCardLoading(false);
+      console.error(err);
     }
   }
 
@@ -94,19 +80,9 @@ function ProductCard({ id, title, imgURL, desc, price, onError }) {
             {desc}
           </Card.Text>
           <p>{price}€</p>
-          {isCardLoading 
-          ? (
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          )
-          : (
-          <>
-            <Button onClick={handleEditProduct}>Modifier le produit complet</Button>
-            <Button onClick={handleEditPrice}>Modifier le prix du produit</Button>
-            <Button onClick={handleDeleteProduct} variant='danger'>Supprimer le produit</Button>
-          </>
-          )}
+          <Button onClick={handleEditProduct}>Modifier le produit complet</Button>
+          <Button onClick={handleEditPrice}>Modifier le prix du produit</Button>
+          <Button onClick={handleDeleteProduct} variant='danger'>Supprimer le produit</Button>
         </Card.Body>
       </Card>
     </Col>
