@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import ProductCard from './ProductCard/ProductCard';
-import { Container } from 'react-bootstrap';
+import { Container, Row } from 'react-bootstrap';
 
 function App() {
   const [productList, setProductList] = useState([]);
@@ -20,15 +20,17 @@ function App() {
 
   return (
     <>
-      <Container className='d-flex flex-wrap gap-2'>
-        {productList.map((product) => 
-          <ProductCard 
-            title={product.title} 
-            imgURL={product.image} 
-            desc={product.description} 
-            price={product.price} 
-          />
-        )}
+      <Container>
+        <Row className='g-3 justify-content-center'>
+          {productList.map((product) => 
+            <ProductCard 
+              title={product.title} 
+              imgURL={product.image} 
+              desc={product.description} 
+              price={product.price} 
+            />
+          )}
+        </Row>
       </Container>
     </>
   )
