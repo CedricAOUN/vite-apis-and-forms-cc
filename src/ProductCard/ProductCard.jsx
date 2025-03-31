@@ -22,6 +22,20 @@ function ProductCard({ id, title, imgURL, desc, price }) {
     return alert(`Le produit avec l'id ${data.id} a été modifié`);
   }
 
+  async function handleEditPrice() {
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        price: 54.99,
+      }),
+    });
+    const data = await response.json();
+    return alert(`Le prix du produit avec l'id ${data.id} a été modifié`);
+  }
+
   return (
     <Col lg={3} md={6} sm={12}>
       <Card className='h-100'>
@@ -33,6 +47,7 @@ function ProductCard({ id, title, imgURL, desc, price }) {
           </Card.Text>
           <p>{price}€</p>
           <Button onClick={handleEditProduct}>Modifier le produit complet</Button>
+          <Button onClick={handleEditPrice}>Modifier le prix du produit</Button>
         </Card.Body>
       </Card>
     </Col>
