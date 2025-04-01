@@ -20,7 +20,8 @@ function App() {
         const data = await response.json();
         setProductList(data);
       } catch (err) {
-        setError(err);
+        setError("Une erreur s'est produite lors de l'obtention des produits. Veuillez réessayer ultérieurement.");
+        console.error(err);
       } finally {
         setIsLoading(false);
       }
@@ -59,7 +60,7 @@ function App() {
   };
 
   if(error) {
-    return <p className='text-danger text-center'>{error.message}</p>
+    return <p className='text-danger text-center'>{error}</p>
   }
 
   if(isLoading) {
