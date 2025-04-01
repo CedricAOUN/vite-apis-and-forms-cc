@@ -26,6 +26,7 @@ function ProductCard({ id, title, imgURL, desc, price }) {
       const data = await response.json();
       return alert(`Le produit avec l'id ${data.id} a été modifié`);
     } catch(err) {
+      alert("Une erreur s'est produite lors de la modification du produit.");
       console.error(err);
     }
   }
@@ -49,6 +50,7 @@ function ProductCard({ id, title, imgURL, desc, price }) {
       const data = await response.json();
       return alert(`Le prix du produit avec l'id ${data.id} a été modifié`);
     } catch (err) {
+      alert("Une erreur s'est produite lors de la modification du prix du produit.");
       console.error(err);
     }
   }
@@ -66,6 +68,7 @@ function ProductCard({ id, title, imgURL, desc, price }) {
       const data = await response.json();
       return alert(`Le produit avec l'id ${data.id} a été supprimé`);
     } catch (err) {
+      alert("Une erreur s'est produite lors de la suppression du produit.");
       console.error(err);
     }
   }
