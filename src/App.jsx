@@ -53,7 +53,7 @@ function App() {
       }
 
       const data = await response.json();
-      return alert(`Le produit avec l'id ${data.id} a été créé`);
+      alert(`Le produit avec l'id ${data.id} a été créé`);
     } catch (err) {
       alert("Une erreur s'est produite lors de l'ajout du produit.");
       console.error(err);
